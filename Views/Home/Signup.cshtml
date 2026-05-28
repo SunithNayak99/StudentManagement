@@ -1,0 +1,257 @@
+@{
+    ViewBag.Title = "Sign Up";
+}
+
+@section styles {
+    <style>
+        .signup-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 2rem 0;
+        }
+        
+        .signup-bg-elements {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+        }
+        
+        .signup-bg-elements::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(0, 212, 255, 0.12), transparent 70%);
+            border-radius: 50%;
+            animation: float 10s ease-in-out infinite;
+        }
+        
+        .signup-bg-elements::after {
+            content: '';
+            position: absolute;
+            bottom: -40%;
+            right: -15%;
+            width: 700px;
+            height: 700px;
+            background: radial-gradient(circle, rgba(108, 99, 255, 0.08), transparent 70%);
+            border-radius: 50%;
+            animation: float 12s ease-in-out infinite reverse;
+        }
+        
+        .signup-form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        
+        .signup-form-group .form-control,
+        .signup-form-group .form-select {
+            padding-left: 45px;
+        }
+        
+        .signup-form-group .form-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--muted);
+            transition: color 0.3s ease;
+            z-index: 2;
+        }
+        
+        .signup-form-group .form-control:focus + .form-icon,
+        .signup-form-group .form-select:focus + .form-icon {
+            color: var(--accent);
+        }
+        
+        .password-strength {
+            margin-top: 0.5rem;
+        }
+        
+        .strength-bar {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+        
+        .strength-weak { background: var(--error); width: 25%; }
+        .strength-fair { background: var(--warning); width: 50%; }
+        .strength-good { background: var(--accent); width: 75%; }
+        .strength-strong { background: var(--success); width: 100%; }
+        
+        .strength-text {
+            font-size: 0.8rem;
+            color: var(--muted);
+        }
+        
+        .signup-footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .signup-footer p {
+            color: var(--muted);
+            margin-bottom: 0;
+        }
+        
+        .signup-footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        
+        .signup-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .step.completed {
+            background: var(--success);
+            color: white;
+        }
+        
+        .step-line {
+            width: 40px;
+            height: 2px;
+            background: rgba(255, 255, 255, 0.1);
+            margin-top: 14px;
+            transition: background 0.3s ease;
+        }
+        
+        .step-line.completed {
+            background: var(--success);
+        }
+    </style>
+}
+
+<div class="signup-container">
+    <div class="signup-bg-elements"></div>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-8">
+                <div class="auth-card">
+                    <div class="text-center mb-4">
+                        <span class="hero-badge">Get Started</span>
+                        <h2>Create your StudentHub account</h2>
+                        <p>Join the team workspace to manage students, courses, and communication.</p>
+                    </div>
+                    
+                    <form id="signupForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="signup-form-group">
+                                    <label class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstName" placeholder="First name" required />
+                                    <i class="bi bi-person form-icon"></i>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="signup-form-group">
+                                    <label class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastName" placeholder="Last name" required />
+                                    <i class="bi bi-person form-icon"></i>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="signup-form-group">
+                                    <label class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="signupEmail" placeholder="name@school.edu" required />
+                                    <i class="bi bi-envelope form-icon"></i>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="signup-form-group">
+                                    <label class="form-label">Role</label>
+                                    <select class="form-select" id="userRole" required>
+                                        <option value="">Select your role</option>
+                                        <option value="administrator">Administrator</option>
+                                        <option value="faculty">Faculty</option>
+                                        <option value="support">Support Staff</option>
+                                    </select>
+                                    <i class="bi bi-briefcase form-icon"></i>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="signup-form-group">
+                                    <label class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="signupPassword" placeholder="Create password" required />
+                                    <i class="bi bi-lock form-icon"></i>
+                                    <div class="password-strength">
+                                        <div class="strength-bar">
+                                            <div class="strength-fill" id="strengthFill"></div>
+                                        </div>
+                                        <div class="strength-text" id="strengthText">Password strength</div>
+                                    </div>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="signup-form-group">
+                                    <label class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" required />
+                                    <i class="bi bi-shield-check form-icon"></i>
+                                    <div class="invalid-feedback"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="action-btn w-100 mt-4" id="signupBtn">
+                            <i class="bi bi-person-plus"></i>
+                            Create Account
+                        </button>
+                    </form>
+                    
+                    <div class="signup-footer">
+                        <p>Already have an account? @Html.ActionLink("Login here", "Login", "Home", new { area = "" }, new { })</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

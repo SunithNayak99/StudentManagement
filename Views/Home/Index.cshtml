@@ -1,0 +1,304 @@
+﻿@{
+    ViewBag.Title = "Student Management Dashboard";
+}
+
+<section class="hero-section">
+    <div class="row align-items-center g-4">
+        <div class="col-lg-7">
+            <span class="hero-badge">Smart Student Operations</span>
+            <h1 class="hero-title">Student <span>Management</span> Dashboard</h1>
+            <p class="hero-text">Track student performance, automate enrollments, and keep communication flowing with a clean, modern workspace built for campus teams.</p>
+            <div class="d-flex flex-wrap gap-3">
+                <button class="action-btn" data-bs-toggle="modal" data-bs-target="#studentModal">
+                    <i class="bi bi-plus-lg"></i>
+                    Add Student
+                </button>
+                <button class="btn btn-outline-light">Generate Report</button>
+            </div>
+        </div>
+        <div class="col-lg-5">
+            <div class="hero-card">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <h6 class="mb-0">Today at a glance</h6>
+                    <span class="pill">Live</span>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <p class="stat-label">Total Students</p>
+                        <h3 class="stat-value">1,248</h3>
+                        <span class="stat-trend text-success"><i class="bi bi-arrow-up"></i> 4.2%</span>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Active Courses</p>
+                        <h3 class="stat-value">32</h3>
+                        <span class="stat-trend text-info"><i class="bi bi-lightning"></i> 6 new</span>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Avg. Attendance</p>
+                        <h3 class="stat-value">94%</h3>
+                        <span class="stat-trend text-success"><i class="bi bi-check-circle"></i> Stable</span>
+                    </div>
+                    <div class="stat-card">
+                        <p class="stat-label">Mentor Sessions</p>
+                        <h3 class="stat-value">18</h3>
+                        <span class="stat-trend text-warning"><i class="bi bi-clock"></i> Upcoming</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="info-section">
+    <div class="section-heading">
+        <div>
+            <h2 class="section-title">Campus Insights</h2>
+            <p class="section-subtitle">Quick snapshots to keep your team aligned with student progress.</p>
+        </div>
+        <span class="pill">Updated 5 mins ago</span>
+    </div>
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="info-card">
+                <div class="icon-circle"><i class="bi bi-people"></i></div>
+                <h5>Engagement Pulse</h5>
+                <p>Monitor active participation across courses, clubs, and mentoring sessions in real time.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="info-card">
+                <div class="icon-circle"><i class="bi bi-calendar2-week"></i></div>
+                <h5>Schedule Overview</h5>
+                <p>Keep tabs on this week’s top classes and workshops with easy schedule visibility.</p>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-4">
+            <div class="info-card">
+                <div class="icon-circle"><i class="bi bi-chat-dots"></i></div>
+                <h5>Student Support</h5>
+                <p>Track open support requests and resolve questions before the next check-in.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<header class="dashboard-header">
+    <div>
+        <p class="text-uppercase text-muted mb-1">Student Directory</p>
+        <h2 class="h4 mb-0">Manage enrolled learners</h2>
+    </div>
+    <div class="d-flex flex-wrap align-items-center gap-3">
+        <div class="search-wrapper">
+            <i class="bi bi-search"></i>
+            <input type="text" class="search-input" placeholder="Search students..." />
+        </div>
+        <button class="action-btn" data-bs-toggle="modal" data-bs-target="#studentModal">
+            <i class="bi bi-plus-lg"></i>
+            Add Student
+        </button>
+    </div>
+</header>
+
+<section class="card-surface">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h2 class="h5 mb-0">Enrolled Students</h2>
+        <span class="pill" id="studentCount">5 Total</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Email</th>
+                    <th>Course</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="studentTableBody">
+                <tr>
+                    <td>
+                        <div class="fw-semibold">Ava Martinez</div>
+                        <small class="text-muted">Student ID: ST-1042</small>
+                    </td>
+                    <td>20</td>
+                    <td>ava.martinez@example.com</td>
+                    <td>Computer Science</td>
+                    <td class="text-end action-group">
+                        <button class="btn btn-sm btn-outline-light me-2 edit-student" data-bs-toggle="modal" data-bs-target="#studentModal">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-student">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="fw-semibold">Noah Patel</div>
+                        <small class="text-muted">Student ID: ST-1088</small>
+                    </td>
+                    <td>22</td>
+                    <td>noah.patel@example.com</td>
+                    <td>Business Analytics</td>
+                    <td class="text-end action-group">
+                        <button class="btn btn-sm btn-outline-light me-2 edit-student" data-bs-toggle="modal" data-bs-target="#studentModal">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-student">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="fw-semibold">Sophia Chen</div>
+                        <small class="text-muted">Student ID: ST-1125</small>
+                    </td>
+                    <td>19</td>
+                    <td>sophia.chen@example.com</td>
+                    <td>UX Design</td>
+                    <td class="text-end action-group">
+                        <button class="btn btn-sm btn-outline-light me-2 edit-student" data-bs-toggle="modal" data-bs-target="#studentModal">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-student">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="fw-semibold">Liam Johnson</div>
+                        <small class="text-muted">Student ID: ST-1194</small>
+                    </td>
+                    <td>21</td>
+                    <td>liam.johnson@example.com</td>
+                    <td>Cybersecurity</td>
+                    <td class="text-end action-group">
+                        <button class="btn btn-sm btn-outline-light me-2 edit-student" data-bs-toggle="modal" data-bs-target="#studentModal">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-student">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="fw-semibold">Mia Rodriguez</div>
+                        <small class="text-muted">Student ID: ST-1231</small>
+                    </td>
+                    <td>23</td>
+                    <td>mia.rodriguez@example.com</td>
+                    <td>Data Science</td>
+                    <td class="text-end action-group">
+                        <button class="btn btn-sm btn-outline-light me-2 edit-student" data-bs-toggle="modal" data-bs-target="#studentModal">
+                            <i class="bi bi-pencil"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger delete-student">
+                            <i class="bi bi-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<section class="row g-4 mt-4">
+    <div class="col-lg-6">
+        <div class="info-panel">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h5 class="mb-0">Upcoming Sessions</h5>
+                <span class="pill">3 Events</span>
+            </div>
+            <ul class="timeline-list">
+                <li>
+                    <div>
+                        <strong>Orientation Workshop</strong>
+                        <p class="mb-0 text-muted">Tomorrow, 10:00 AM</p>
+                    </div>
+                    <span class="badge-pill">Auditorium A</span>
+                </li>
+                <li>
+                    <div>
+                        <strong>UX Portfolio Review</strong>
+                        <p class="mb-0 text-muted">Friday, 2:00 PM</p>
+                    </div>
+                    <span class="badge-pill">Lab 3</span>
+                </li>
+                <li>
+                    <div>
+                        <strong>Data Science Meetup</strong>
+                        <p class="mb-0 text-muted">Next Monday, 4:30 PM</p>
+                    </div>
+                    <span class="badge-pill">Virtual</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-lg-6">
+        <div class="info-panel">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h5 class="mb-0">Recent Activity</h5>
+                <span class="pill">Live</span>
+            </div>
+            <ul class="activity-list">
+                <li>
+                    <i class="bi bi-check-circle"></i>
+                    Ava Martinez submitted coursework for <strong>Intro to AI</strong>.
+                </li>
+                <li>
+                    <i class="bi bi-person-plus"></i>
+                    Mia Rodriguez joined the <strong>Data Science</strong> cohort.
+                </li>
+                <li>
+                    <i class="bi bi-chat-square-dots"></i>
+                    Support ticket resolved for <strong>Noah Patel</strong>.
+                </li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade" id="studentModal" tabindex="-1" aria-labelledby="studentModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="studentModalLabel">Add Student</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="studentForm">
+                    <div class="mb-3">
+                        <label class="form-label">Name</label>
+                        <input type="text" class="form-control" id="studentName" placeholder="Enter full name" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Age</label>
+                        <input type="number" class="form-control" id="studentAge" placeholder="Enter age" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input type="email" class="form-control" id="studentEmail" placeholder="Enter email address" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Course</label>
+                        <select class="form-select" id="studentCourse">
+                            <option selected>Computer Science</option>
+                            <option>Business Analytics</option>
+                            <option>UX Design</option>
+                            <option>Cybersecurity</option>
+                            <option>Data Science</option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-light" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="action-btn" id="saveStudentBtn">Save Student</button>
+            </div>
+        </div>
+    </div>
+</div>
