@@ -10,21 +10,7 @@ namespace management.Controllers
     {
         public ActionResult Index()
         {
-            return View();
-        }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            return RedirectToAction("Login");
         }
 
         public ActionResult Login()
@@ -34,6 +20,58 @@ namespace management.Controllers
 
         public ActionResult Signup()
         {
+            return View();
+        }
+
+        public ActionResult Dashboard()
+        {
+            return View();
+        }
+
+        public ActionResult StudentRegistration()
+        {
+            return View();
+        }
+
+        public ActionResult TeacherAdd()
+        {
+            return View();
+        }
+
+        public ActionResult ClassCreation()
+        {
+            return View();
+        }
+
+        public ActionResult SubjectManagement()
+        {
+            return View();
+        }
+
+        public ActionResult Attendance()
+        {
+            return View();
+        }
+
+        public ActionResult FeesCollection()
+        {
+            return View();
+        }
+
+        public ActionResult ExamManagement()
+        {
+            return View();
+        }
+
+        public ActionResult About()
+        {
+            ViewBag.Message = "Your application description page.";
+            return View();
+        }
+
+        public ActionResult Contact()
+        {
+            ViewBag.Message = "Your contact page.";
             return View();
         }
     }

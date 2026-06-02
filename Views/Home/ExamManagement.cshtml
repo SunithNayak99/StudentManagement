@@ -1,0 +1,67 @@
+@{
+    ViewBag.Title = "Exam Management";
+}
+
+<div class="dashboard-header">
+    <div>
+        <p class="text-uppercase text-muted mb-1">Assessments</p>
+        <h2 class="dashboard-title">Exam <span>Management</span></h2>
+    </div>
+    <button class="action-btn" data-bs-toggle="modal" data-bs-target="#examModal">
+        <i class="bi bi-plus-lg"></i>
+        Add Result
+    </button>
+</div>
+
+<div class="card-surface">
+    <div class="d-flex justify-content-between mb-4">
+        <h5 class="mb-0">Exam Results</h5>
+        <span class="pill" id="examCount">0 Results</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead><tr><th>Student</th><th>Subject</th><th>Marks</th><th>Grade</th><th>Status</th><th class="text-end">Actions</th></tr></thead>
+            <tbody id="examTableBody">
+                <tr id="emptyRow"><td colspan="6" class="text-center text-muted">No results yet.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="examModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5>Add Exam Result</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <form id="examForm">
+                    <div class="row g-3">
+                        <div class="col-md-6"><label class="form-label">Student <span class="text-danger">*</span></label>
+                            <input class="form-control" id="studentName" required /><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-6"><label class="form-label">Subject <span class="text-danger">*</span></label>
+                            <select class="form-select" id="subject" required>
+                                <option value="">Select</option><option>Mathematics</option><option>Science</option><option>English</option>
+                            </select><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-4"><label class="form-label">Marks <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="marks" min="0" max="100" required /><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-4"><label class="form-label">Grade <span class="text-danger">*</span></label>
+                            <select class="form-select" id="grade" required>
+                                <option value="">Select</option><option>A</option><option>B</option><option>C</option><option>D</option><option>F</option>
+                            </select><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-4"><label class="form-label">Status <span class="text-danger">*</span></label>
+                            <select class="form-select" id="resultStatus" required>
+                                <option value="">Select</option><option>Pass</option><option>Fail</option>
+                            </select><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-6"><label class="form-label">Exam Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="examDate" required /><div class="invalid-feedback">Required</div></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
+                <button class="action-btn" id="saveExamBtn"><i class="bi bi-check-circle"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts { <script src="~/Scripts/exam-management.js"></script> }

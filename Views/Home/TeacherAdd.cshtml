@@ -1,0 +1,110 @@
+@{
+    ViewBag.Title = "Teacher Add";
+}
+
+<div class="dashboard-header">
+    <div>
+        <p class="text-uppercase text-muted mb-1">Staff Management</p>
+        <h2 class="dashboard-title">Teacher <span>Add</span></h2>
+    </div>
+    <button class="action-btn" data-bs-toggle="modal" data-bs-target="#teacherModal">
+        <i class="bi bi-plus-lg"></i>
+        Add Teacher
+    </button>
+</div>
+
+<div class="card-surface">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h5 class="mb-0">Teaching Staff</h5>
+        <span class="pill" id="teacherCount">0 Teachers</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table align-middle">
+            <thead>
+                <tr>
+                    <th>Teacher Name</th>
+                    <th>Subject</th>
+                    <th>Qualification</th>
+                    <th>Mobile</th>
+                    <th>Salary</th>
+                    <th class="text-end">Actions</th>
+                </tr>
+            </thead>
+            <tbody id="teacherTableBody">
+                <tr id="emptyRow">
+                    <td colspan="6" class="text-center text-muted">No teachers added yet. Click "Add Teacher" to begin.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="teacherModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add New Teacher</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="teacherForm">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Teacher Name <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="teacherName" required />
+                            <div class="invalid-feedback">Name is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Subject <span class="text-danger">*</span></label>
+                            <select class="form-select" id="subject" required>
+                                <option value="">Select subject</option>
+                                <option>Mathematics</option>
+                                <option>Science</option>
+                                <option>English</option>
+                                <option>Hindi</option>
+                                <option>Social Science</option>
+                            </select>
+                            <div class="invalid-feedback">Subject is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Qualification <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" id="qualification" required />
+                            <div class="invalid-feedback">Qualification is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Email <span class="text-danger">*</span></label>
+                            <input type="email" class="form-control" id="email" required />
+                            <div class="invalid-feedback">Email is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Mobile <span class="text-danger">*</span></label>
+                            <input type="tel" class="form-control" id="mobile" required />
+                            <div class="invalid-feedback">Mobile is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Joining Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="joiningDate" required />
+                            <div class="invalid-feedback">Date is required</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Salary <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="salary" required />
+                            <div class="invalid-feedback">Salary is required</div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="action-btn" id="saveTeacherBtn">
+                    <i class="bi bi-check-circle"></i>
+                    Save Teacher
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Scripts/teacher-add.js"></script>
+}

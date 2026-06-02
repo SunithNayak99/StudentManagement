@@ -1,0 +1,61 @@
+@{
+    ViewBag.Title = "Subject Management";
+}
+
+<div class="dashboard-header">
+    <div>
+        <p class="text-uppercase text-muted mb-1">Curriculum</p>
+        <h2 class="dashboard-title">Subject <span>Management</span></h2>
+    </div>
+    <button class="action-btn" data-bs-toggle="modal" data-bs-target="#subjectModal">
+        <i class="bi bi-plus-lg"></i>
+        Add Subject
+    </button>
+</div>
+
+<div class="card-surface">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <h5 class="mb-0">Subjects</h5>
+        <span class="pill" id="subjectCount">0 Subjects</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr><th>Subject</th><th>Code</th><th>Class</th><th>Teacher</th><th class="text-end">Actions</th></tr>
+            </thead>
+            <tbody id="subjectTableBody">
+                <tr id="emptyRow"><td colspan="5" class="text-center text-muted">No subjects added.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="subjectModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5>Add Subject</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <form id="subjectForm">
+                    <div class="mb-3"><label class="form-label">Subject <span class="text-danger">*</span></label>
+                        <select class="form-select" id="subjectName" required>
+                            <option value="">Select</option><option>Mathematics</option><option>Science</option><option>English</option>
+                        </select><div class="invalid-feedback">Required</div></div>
+                    <div class="mb-3"><label class="form-label">Code <span class="text-danger">*</span></label>
+                        <input class="form-control" id="subjectCode" required /><div class="invalid-feedback">Required</div></div>
+                    <div class="mb-3"><label class="form-label">Class <span class="text-danger">*</span></label>
+                        <select class="form-select" id="className" required>
+                            <option value="">Select</option><option>Class 10</option>
+                        </select><div class="invalid-feedback">Required</div></div>
+                    <div class="mb-3"><label class="form-label">Teacher <span class="text-danger">*</span></label>
+                        <input class="form-control" id="teacherName" required /><div class="invalid-feedback">Required</div></div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
+                <button class="action-btn" id="saveSubjectBtn"><i class="bi bi-check-circle"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts { <script src="~/Scripts/subject-management.js"></script> }

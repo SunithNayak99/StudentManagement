@@ -1,0 +1,62 @@
+@{
+    ViewBag.Title = "Fees Collection";
+}
+
+<div class="dashboard-header">
+    <div>
+        <p class="text-uppercase text-muted mb-1">Finance</p>
+        <h2 class="dashboard-title">Fees <span>Collection</span></h2>
+    </div>
+    <button class="action-btn" data-bs-toggle="modal" data-bs-target="#feesModal">
+        <i class="bi bi-plus-lg"></i>
+        Collect Fee
+    </button>
+</div>
+
+<div class="card-surface">
+    <div class="d-flex justify-content-between mb-4">
+        <h5 class="mb-0">Fee Records</h5>
+        <span class="pill" id="feesCount">0 Records</span>
+    </div>
+    <div class="table-responsive">
+        <table class="table">
+            <thead><tr><th>Student</th><th>Class</th><th>Amount</th><th>Payment Mode</th><th>Date</th><th class="text-end">Actions</th></tr></thead>
+            <tbody id="feesTableBody">
+                <tr id="emptyRow"><td colspan="6" class="text-center text-muted">No records yet.</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div class="modal fade" id="feesModal" tabindex="-1">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header"><h5>Collect Fee</h5><button class="btn-close" data-bs-dismiss="modal"></button></div>
+            <div class="modal-body">
+                <form id="feesForm">
+                    <div class="row g-3">
+                        <div class="col-md-6"><label class="form-label">Student <span class="text-danger">*</span></label>
+                            <input class="form-control" id="studentName" required /><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-6"><label class="form-label">Class <span class="text-danger">*</span></label>
+                            <select class="form-select" id="studentClass" required><option value="">Select</option><option>Class 10</option></select>
+                            <div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-6"><label class="form-label">Amount (₹) <span class="text-danger">*</span></label>
+                            <input type="number" class="form-control" id="amount" required /><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-6"><label class="form-label">Payment Mode <span class="text-danger">*</span></label>
+                            <select class="form-select" id="paymentMode" required>
+                                <option value="">Select</option><option>Cash</option><option>UPI</option><option>Card</option>
+                            </select><div class="invalid-feedback">Required</div></div>
+                        <div class="col-md-6"><label class="form-label">Date <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" id="paymentDate" required /><div class="invalid-feedback">Required</div></div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
+                <button class="action-btn" id="saveFeesBtn"><i class="bi bi-check-circle"></i> Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts { <script src="~/Scripts/fees-collection.js"></script> }

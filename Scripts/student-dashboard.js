@@ -1,4 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
+    // Sidebar toggle
+    const sidebar = document.getElementById('sidebar');
+    const sidebarToggle = document.getElementById('sidebarToggle');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+
+    if (sidebarToggle && sidebar) {
+        sidebarToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebarOverlay.classList.toggle('open');
+        });
+        sidebarOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebarOverlay.classList.remove('open');
+        });
+    }
+
     // Student management functionality
     const studentModal = document.getElementById("studentModal");
     const studentForm = document.getElementById("studentForm");
@@ -139,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 setTimeout(() => {
                     hideLoadingState(loginBtn);
                     // Redirect to dashboard
-                    window.location.href = '/Home/Index';
+                    window.location.href = '/Home/Dashboard';
                 }, 1500);
             }
         });
