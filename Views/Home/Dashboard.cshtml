@@ -4,106 +4,147 @@
 
 <div class="dashboard-header mb-4">
     <div>
+        <p class="text-uppercase text-muted mb-1" style="font-size:11px;font-weight:700;letter-spacing:1px;">Overview</p>
         <h2 class="dashboard-title">School <span>Dashboard</span></h2>
-        <p class="text-muted">Welcome to School Management System</p>
+    </div>
+    <div class="d-flex align-items-center gap-3">
+        <div class="text-end">
+            <div class="fw-700" style="font-size:0.88rem;font-weight:700;color:var(--text-dark);">Admin User</div>
+            <div style="font-size:0.78rem;color:var(--text-gray);">admin&#64;school.edu</div>
+            <div style="font-size:0.72rem;color:var(--text-gray);">Principal &bull; School Management</div>
+        </div>
+        <div style="width:42px;height:42px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;color:#fff;font-size:1rem;flex-shrink:0;box-shadow:var(--shadow-accent);">
+            A
+        </div>
     </div>
 </div>
 
-<div class="row g-4 mb-4">
-    <div class="col-md-6 col-lg-3">
+<!-- Stat Cards -->
+<div class="row g-3 mb-4">
+    <div class="col-6 col-lg-3">
         <div class="stat-box">
-            <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15);">
-                <i class="bi bi-people" style="color: #10b981;"></i>
+            <div class="stat-icon" style="background:rgba(16,185,129,.12);">
+                <i class="bi bi-people-fill" style="color:#10b981;"></i>
             </div>
             <div>
                 <p class="stat-label">Total Students</p>
-                <h3 class="stat-value">1,248</h3>
+                <h3 class="stat-value" id="dashStudentCount">0</h3>
+                <div style="font-size:11px;color:#10b981;font-weight:600;margin-top:2px;"><i class="bi bi-arrow-up-short"></i> Live count</div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-6 col-lg-3">
         <div class="stat-box">
-            <div class="stat-icon" style="background: rgba(59, 130, 246, 0.15);">
-                <i class="bi bi-person-badge" style="color: #3b82f6;"></i>
+            <div class="stat-icon" style="background:rgba(59,130,246,.12);">
+                <i class="bi bi-person-badge-fill" style="color:#3b82f6;"></i>
             </div>
             <div>
                 <p class="stat-label">Total Teachers</p>
                 <h3 class="stat-value">84</h3>
+                <div style="font-size:11px;color:#3b82f6;font-weight:600;margin-top:2px;"><i class="bi bi-dot"></i> Active staff</div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-6 col-lg-3">
         <div class="stat-box">
-            <div class="stat-icon" style="background: rgba(168, 85, 247, 0.15);">
-                <i class="bi bi-door-open" style="color: #a855f7;"></i>
+            <div class="stat-icon" style="background:rgba(139,92,246,.12);">
+                <i class="bi bi-door-open-fill" style="color:#8b5cf6;"></i>
             </div>
             <div>
                 <p class="stat-label">Total Classes</p>
                 <h3 class="stat-value">32</h3>
+                <div style="font-size:11px;color:#8b5cf6;font-weight:600;margin-top:2px;"><i class="bi bi-dot"></i> Across 12 grades</div>
             </div>
         </div>
     </div>
-    <div class="col-md-6 col-lg-3">
+    <div class="col-6 col-lg-3">
         <div class="stat-box">
-            <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15);">
-                <i class="bi bi-currency-dollar" style="color: #f59e0b;"></i>
+            <div class="stat-icon" style="background:rgba(245,158,11,.12);">
+                <i class="bi bi-currency-rupee" style="color:#f59e0b;"></i>
             </div>
             <div>
-                <p class="stat-label">Total Fee Collection</p>
-                <h3 class="stat-value">₹5.2L</h3>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6 col-lg-3">
-        <div class="stat-box">
-            <div class="stat-icon" style="background: rgba(239, 68, 68, 0.15);">
-                <i class="bi bi-exclamation-circle" style="color: #ef4444;"></i>
-            </div>
-            <div>
-                <p class="stat-label">Pending Fees</p>
-                <h3 class="stat-value">₹82K</h3>
+                <p class="stat-label">Fee Collection</p>
+                <h3 class="stat-value">&#8377;5.2L</h3>
+                <div style="font-size:11px;color:#f59e0b;font-weight:600;margin-top:2px;"><i class="bi bi-arrow-up-short"></i> This month</div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="row g-4">
+<!-- Charts -->
+<div class="row g-3 mb-4">
+    <div class="col-lg-8">
+        <div class="card-surface h-100">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <div>
+                    <h5 class="mb-0 fw-700" style="font-weight:700;font-size:15px;">Enrollment by Class</h5>
+                    <p class="text-muted mb-0" style="font-size:12px;">Students registered per class</p>
+                </div>
+                <span class="pill">Live</span>
+            </div>
+            <div id="barChartEmpty" class="text-center text-muted py-5" style="display:none;">
+                <i class="bi bi-bar-chart" style="font-size:2rem;opacity:.3;"></i>
+                <p class="mt-2 mb-0" style="font-size:13px;">No students registered yet</p>
+            </div>
+            <canvas id="enrollmentBarChart" height="100"></canvas>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card-surface h-100">
+            <div class="mb-3">
+                <h5 class="mb-0 fw-700" style="font-weight:700;font-size:15px;">Gender Distribution</h5>
+                <p class="text-muted mb-0" style="font-size:12px;">Registered students breakdown</p>
+            </div>
+            <div id="pieChartEmpty" class="text-center text-muted py-5" style="display:none;">
+                <i class="bi bi-pie-chart" style="font-size:2rem;opacity:.3;"></i>
+                <p class="mt-2 mb-0" style="font-size:13px;">No data yet</p>
+            </div>
+            <canvas id="genderPieChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Activity + Quick Actions -->
+<div class="row g-3">
     <div class="col-lg-8">
         <div class="card-surface">
-            <h5 class="mb-3">Recent Activities</h5>
-            <ul class="activity-list">
+            <div class="d-flex align-items-center justify-content-between mb-3">
+                <h5 class="mb-0 fw-700" style="font-weight:700;font-size:15px;">Recent Activity</h5>
+                <span class="pill">Latest</span>
+            </div>
+            <ul class="activity-list" id="activityList">
                 <li>
-                    <i class="bi bi-person-plus"></i>
-                    <span>New student <strong>Rahul Kumar</strong> registered in Class 10-A</span>
-                    <small class="text-muted">2 mins ago</small>
-                </li>
-                <li>
-                    <i class="bi bi-cash"></i>
-                    <span>Fee collected ₹15,000 from <strong>Priya Sharma</strong></span>
-                    <small class="text-muted">15 mins ago</small>
-                </li>
-                <li>
-                    <i class="bi bi-calendar-check"></i>
-                    <span>Attendance marked for Class 8-B by <strong>Mr. Singh</strong></span>
-                    <small class="text-muted">1 hour ago</small>
+                    <i class="bi bi-calendar-check-fill"></i>
+                    <span>Attendance marked for <strong>Class 8-B</strong> by Mr. Singh</span>
+                    <small class="text-muted">1 hr ago</small>
                 </li>
                 <li>
                     <i class="bi bi-journal-check"></i>
                     <span>Exam results published for <strong>Class 12 Mathematics</strong></span>
-                    <small class="text-muted">3 hours ago</small>
+                    <small class="text-muted">3 hrs ago</small>
+                </li>
+                <li>
+                    <i class="bi bi-cash-stack"></i>
+                    <span>Fee collected <strong>&#8377;15,000</strong> from Priya Sharma</span>
+                    <small class="text-muted">5 hrs ago</small>
                 </li>
             </ul>
         </div>
     </div>
     <div class="col-lg-4">
         <div class="card-surface">
-            <h5 class="mb-3">Quick Actions</h5>
+            <h5 class="mb-3 fw-700" style="font-weight:700;font-size:15px;">Quick Actions</h5>
             <div class="d-grid gap-2">
-                @Html.ActionLink("Add New Student", "StudentRegistration", "Home", null, new { @class = "btn btn-outline-light text-start" })
-                @Html.ActionLink("Mark Attendance", "Attendance", "Home", null, new { @class = "btn btn-outline-light text-start" })
-                @Html.ActionLink("Collect Fees", "FeesCollection", "Home", null, new { @class = "btn btn-outline-light text-start" })
-                @Html.ActionLink("Update Exam Results", "ExamManagement", "Home", null, new { @class = "btn btn-outline-light text-start" })
+                @Html.ActionLink("➕  Add New Student", "StudentRegistration", "Home", null, new { @class = "btn btn-outline-light text-start" })
+                @Html.ActionLink("📋  Mark Attendance", "Attendance", "Home", null, new { @class = "btn btn-outline-light text-start" })
+                @Html.ActionLink("💰  Collect Fees", "FeesCollection", "Home", null, new { @class = "btn btn-outline-light text-start" })
+                @Html.ActionLink("📝  Exam Results", "ExamManagement", "Home", null, new { @class = "btn btn-outline-light text-start" })
             </div>
         </div>
     </div>
 </div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <script src="~/Scripts/dashboard-charts.js"></script>
+}
