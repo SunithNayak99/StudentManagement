@@ -1,16 +1,19 @@
-document.addEventListener('DOMContentLoaded', function() {
+// Attendance JavaScript
+document.addEventListener('DOMContentLoaded', function () {
     const saveBtn = document.getElementById('saveAttendanceBtn');
+    const searchModalBtn = document.getElementById('searchAttendanceBtn');
+    const searchBox = document.getElementById('attendanceSearchBox');
     const form = document.getElementById('attendanceForm');
     const tableBody = document.getElementById('attendanceTableBody');
     const modalEl = document.getElementById('attendanceModal');
     if (!saveBtn || !form || !tableBody || !modalEl) return;
-    
+
     const modal = new bootstrap.Modal(modalEl);
     let count = 0;
 
     form.querySelectorAll('input, select').forEach(f => f.addEventListener('input', () => f.classList.remove('is-invalid')));
 
-    saveBtn.addEventListener('click', function() {
+    saveBtn.addEventListener('click', function () {
         let isValid = true;
         form.querySelectorAll('[required]').forEach(f => {
             if (!f.value.trim()) { f.classList.add('is-invalid'); isValid = false; }
@@ -32,10 +35,9 @@ document.addEventListener('DOMContentLoaded', function() {
             <td><span class="badge bg-${badge}">${status}</span></td>
             <td class="text-end">
                 <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash"></i></button>
-            </td>
-        `;
+            </td>`;
 
-        row.querySelector('.delete-btn').addEventListener('click', function() {
+        row.querySelector('.delete-btn').addEventListener('click', function () {
             if (confirm('Delete?')) {
                 row.style.animation = 'fadeOut 0.3s ease';
                 setTimeout(() => {
@@ -51,4 +53,27 @@ document.addEventListener('DOMContentLoaded', function() {
         form.reset();
         modal.hide();
     });
+
+    // Search filters table by student name
+    searchModalBtn.addEventListener('click', function () {
+        const q = document.getElementById('studentName').value.trim().toLowerCase();
+        if (!q) return;
+        let found = false;
+        tableBody.querySelectorAll('tr:not(#emptyRow)').forEach(row => {
+            const match = row.textContent.toLowerCase().includes(q);
+            row.style.display = match ? '' : 'none';
+            if (match) found = true;
+        });
+        if (!found) alert('No attendance record found for that name.');
+        modal.hide();
+    });
+
+    if (searchBox) {
+        searchBox.addEventListener('input', function () {
+            const q = this.value.toLowerCase();
+            tableBody.querySelectorAll('tr:not(#emptyRow)').forEach(row => {
+                row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
+            });
+        });
+    }
 });

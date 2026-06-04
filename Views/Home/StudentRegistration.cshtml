@@ -16,7 +16,10 @@
 <div class="card-surface">
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h5 class="mb-0">Registered Students</h5>
-        <span class="pill" id="studentCount">0 Students</span>
+        <div class="d-flex align-items-center gap-2">
+            <input type="text" class="form-control form-control-sm" id="studentSearchBox" placeholder="Search students..." style="width:200px;" />
+            <span class="pill" id="studentCount">0 Students</span>
+        </div>
     </div>
     <div class="table-responsive">
         <table class="table align-middle">
@@ -134,7 +137,13 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" id="searchStudentBtn">
+                    <i class="bi bi-search"></i> Search
+                </button>
                 <button type="button" class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-warning" id="updateStudentBtn" style="display:none;">
+                    <i class="bi bi-pencil"></i> Update
+                </button>
                 <button type="button" class="action-btn" id="saveStudentBtn">
                     <i class="bi bi-check-circle"></i>
                     Save Student

@@ -125,9 +125,9 @@
                     
                     <form id="loginForm">
                         <div class="login-form-group">
-                            <label class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="loginEmail" placeholder="you@example.com" required />
-                            <i class="bi bi-envelope form-icon"></i>
+                            <label class="form-label">Username</label>
+                            <input type="text" class="form-control" id="loginUsername" placeholder="Enter your username" required />
+                            <i class="bi bi-person form-icon"></i>
                             <div class="invalid-feedback"></div>
                         </div>
                         
@@ -146,10 +146,16 @@
                             <a href="#" class="forgot-link">Forgot password?</a>
                         </div>
                         
-                        <button type="submit" class="action-btn w-100" id="loginBtn">
-                            <i class="bi bi-box-arrow-in-right"></i>
-                            Login
-                        </button>
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="action-btn flex-grow-1" id="loginBtn">
+                                <i class="bi bi-box-arrow-in-right"></i>
+                                Login
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary" id="resetBtn" onclick="document.getElementById('loginUsername').classList.remove('is-invalid');document.getElementById('loginPassword').classList.remove('is-invalid');">
+                                <i class="bi bi-arrow-counterclockwise"></i>
+                                Reset
+                            </button>
+                        </div>
                     </form>
                     
                     <div class="login-footer">

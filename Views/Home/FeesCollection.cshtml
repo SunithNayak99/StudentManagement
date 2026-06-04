@@ -16,7 +16,10 @@
 <div class="card-surface">
     <div class="d-flex justify-content-between mb-4">
         <h5 class="mb-0">Fee Records</h5>
-        <span class="pill" id="feesCount">0 Records</span>
+        <div class="d-flex align-items-center gap-2">
+            <input type="text" class="form-control form-control-sm" id="feesSearchBox" placeholder="Search records..." style="width:200px;" />
+            <span class="pill" id="feesCount">0 Records</span>
+        </div>
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -52,8 +55,14 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" id="searchFeesBtn">
+                    <i class="bi bi-search"></i> Search
+                </button>
                 <button class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
-                <button class="action-btn" id="saveFeesBtn"><i class="bi bi-check-circle"></i> Save</button>
+                <button class="btn btn-outline-info" id="printReceiptBtn" style="display:none;">
+                    <i class="bi bi-printer"></i> Print Receipt
+                </button>
+                <button class="action-btn" id="saveFeesBtn"><i class="bi bi-check-circle"></i> Collect Fees</button>
             </div>
         </div>
     </div>

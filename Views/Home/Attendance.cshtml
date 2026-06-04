@@ -16,7 +16,10 @@
 <div class="card-surface">
     <div class="d-flex align-items-center justify-content-between mb-4">
         <h5 class="mb-0">Attendance Records</h5>
-        <span class="pill" id="attendanceCount">0 Records</span>
+        <div class="d-flex align-items-center gap-2">
+            <input type="text" class="form-control form-control-sm" id="attendanceSearchBox" placeholder="Search records..." style="width:200px;" />
+            <span class="pill" id="attendanceCount">0 Records</span>
+        </div>
     </div>
     <div class="table-responsive">
         <table class="table">
@@ -48,8 +51,11 @@
                 </form>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary" id="searchAttendanceBtn">
+                    <i class="bi bi-search"></i> Search
+                </button>
                 <button class="btn-outline-light btn" data-bs-dismiss="modal">Cancel</button>
-                <button class="action-btn" id="saveAttendanceBtn"><i class="bi bi-check-circle"></i> Save</button>
+                <button class="action-btn" id="saveAttendanceBtn"><i class="bi bi-check-circle"></i> Submit</button>
             </div>
         </div>
     </div>

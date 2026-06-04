@@ -2,12 +2,8 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const loginBtn = document.getElementById('loginBtn');
-    const loginEmail = document.getElementById('loginEmail');
+    const loginUsername = document.getElementById('loginUsername');
     const loginPassword = document.getElementById('loginPassword');
-
-    function validateEmail(email) {
-        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-    }
 
     function showError(field, message) {
         field.classList.add('is-invalid');
@@ -19,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
         field.classList.remove('is-invalid');
     }
 
-    loginEmail.addEventListener('input', () => clearError(loginEmail));
+    loginUsername.addEventListener('input', () => clearError(loginUsername));
     loginPassword.addEventListener('input', () => clearError(loginPassword));
 
     loginForm.addEventListener('submit', function(e) {
@@ -27,11 +23,8 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let isValid = true;
 
-        if (!loginEmail.value.trim()) {
-            showError(loginEmail, 'Email is required');
-            isValid = false;
-        } else if (!validateEmail(loginEmail.value)) {
-            showError(loginEmail, 'Invalid email format');
+        if (!loginUsername.value.trim()) {
+            showError(loginUsername, 'Username is required');
             isValid = false;
         }
 
