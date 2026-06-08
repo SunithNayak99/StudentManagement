@@ -1,0 +1,46 @@
+# Quick Start - Database Connection
+
+## ⚡ 3 Simple Steps:
+
+### 1️⃣ Run SQL Script
+Open **SQL Server Management Studio** and execute:
+```
+Database_Schema.sql
+```
+
+### 2️⃣ Update Connection String
+In `Web.config`, change:
+```
+YOUR_SERVER_NAME
+```
+To one of these:
+- `localhost`
+- `.\SQLEXPRESS`
+- `(localdb)\MSSQLLocalDB`
+
+### 3️⃣ Run Application
+Press F5 in Visual Studio
+
+## 🔑 Default Login:
+- **Email:** admin@school.edu  
+- **Password:** admin123
+
+---
+
+## 📝 Example Connection Strings:
+
+```xml
+<!-- Local SQL Server -->
+Data Source=localhost;Initial Catalog=SchoolManagement;Integrated Security=True
+
+<!-- SQL Express -->
+Data Source=.\SQLEXPRESS;Initial Catalog=SchoolManagement;Integrated Security=True
+
+<!-- LocalDB -->
+Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SchoolManagement;Integrated Security=True
+
+<!-- SQL Authentication -->
+Data Source=localhost;Initial Catalog=SchoolManagement;User ID=sa;Password=yourpass
+```
+
+Done! 🎉
