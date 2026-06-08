@@ -1,88 +1,114 @@
-// Teacher Add JavaScript
 document.addEventListener('DOMContentLoaded', function () {
-    const saveBtn = document.getElementById('saveTeacherBtn');
-    const updateBtn = document.getElementById('updateTeacherBtn');
+    const saveBtn        = document.getElementById('saveTeacherBtn');
+    const updateBtn      = document.getElementById('updateTeacherBtn');
     const searchModalBtn = document.getElementById('searchTeacherBtn');
-    const searchBox = document.getElementById('teacherSearchBox');
-    const form = document.getElementById('teacherForm');
-    const tableBody = document.getElementById('teacherTableBody');
-    const modalEl = document.getElementById('teacherModal');
-    const modal = bootstrap.Modal.getOrCreateInstance(modalEl);
-    let teachers = JSON.parse(localStorage.getItem('teachers') || '[]');
-    let editingIdx = null;
-
-    function save() { localStorage.setItem('teachers', JSON.stringify(teachers)); }
+    const searchBox      = document.getElementById('teacherSearchBox');
+    const form           = document.getElementById('teacherForm');
+    const tableBody      = document.getElementById('teacherTableBody');
+    const modalEl        = document.getElementById('teacherModal');
+    const modal          = bootstrap.Modal.getOrCreateInstance(modalEl);
+    let editingId        = null;
 
     function updateCount() {
-        const n = tableBody.querySelectorAll('tr[data-idx]').length;
+        const n = tableBody.querySelectorAll('tr[data-id]').length;
         document.getElementById('teacherCount').textContent = `${n} Teacher${n !== 1 ? 's' : ''}`;
     }
 
-    function fillForm(data) {
-        document.getElementById('teacherName').value = data.name;
-        document.getElementById('subject').value = data.subject;
-        document.getElementById('qualification').value = data.qualification;
-        document.getElementById('email').value = data.email;
-        document.getElementById('mobile').value = data.mobile;
-        document.getElementById('joiningDate').value = data.joiningDate;
-        document.getElementById('salary').value = data.salary;
+    function getFormData() {
+        return {
+            Id:           editingId || 0,
+            Name:         document.getElementById('teacherName').value,
+            Subject:      document.getElementById('subject').value,
+            Qualification: document.getElementById('qualification').value,
+            Email:        document.getElementById('email').value,
+            Mobile:       document.getElementById('mobile').value,
+            JoiningDate:  document.getElementById('joiningDate').value,
+            Salary:       document.getElementById('salary').value
+        };
     }
 
-    function renderRow(data, idx) {
+    function fillForm(t) {
+        document.getElementById('teacherName').value    = t.Name;
+        document.getElementById('subject').value        = t.Subject;
+        document.getElementById('qualification').value  = t.Qualification;
+        document.getElementById('email').value          = t.Email;
+        document.getElementById('mobile').value         = t.Mobile;
+        document.getElementById('joiningDate').value    = (t.JoiningDate || '').substring(0, 10);
+        document.getElementById('salary').value         = t.Salary;
+    }
+
+    function validateForm() {
+        let ok = true;
+        form.querySelectorAll('[required]').forEach(f => {
+            if (!f.value.trim()) { f.classList.add('is-invalid'); ok = false; }
+        });
+        return ok;
+    }
+
+    function renderRow(t) {
         const emptyRow = document.getElementById('emptyRow');
         if (emptyRow) emptyRow.remove();
 
         const row = document.createElement('tr');
-        row.dataset.idx = idx;
+        row.dataset.id = t.Id;
         row.style.animation = 'fadeIn 0.4s ease';
         row.innerHTML = `
-            <td><div class="fw-semibold">${data.name}</div><small class="text-muted">${data.email}</small></td>
-            <td>${data.subject}</td>
-            <td>${data.qualification}</td>
-            <td>${data.mobile}</td>
-            <td>₹${parseInt(data.salary).toLocaleString()}</td>
+            <td><div class="fw-semibold">${t.Name}</div><small class="text-muted">${t.Email}</small></td>
+            <td>${t.Subject}</td>
+            <td>${t.Qualification}</td>
+            <td>${t.Mobile}</td>
+            <td>₹${parseInt(t.Salary).toLocaleString()}</td>
             <td class="text-end">
                 <button class="btn btn-sm btn-outline-warning edit-btn me-1"><i class="bi bi-pencil"></i></button>
                 <button class="btn btn-sm btn-outline-danger delete-btn"><i class="bi bi-trash"></i></button>
             </td>`;
 
         row.querySelector('.edit-btn').addEventListener('click', function () {
-            editingIdx = parseInt(row.dataset.idx);
-            fillForm(teachers[editingIdx]);
+            editingId = t.Id;
+            fillForm(t);
             saveBtn.style.display = 'none';
             updateBtn.style.display = '';
             modal.show();
         });
 
         row.querySelector('.delete-btn').addEventListener('click', function () {
-            if (confirm('Delete this teacher?')) {
-                row.style.animation = 'fadeOut 0.3s ease';
-                setTimeout(() => {
-                    teachers.splice(parseInt(row.dataset.idx), 1);
-                    save();
-                    row.remove();
-                    tableBody.querySelectorAll('tr[data-idx]').forEach((r, i) => r.dataset.idx = i);
-                    updateCount();
-                    if (tableBody.querySelectorAll('tr[data-idx]').length === 0) {
-                        const tr = document.createElement('tr');
-                        tr.id = 'emptyRow';
-                        tr.innerHTML = '<td colspan="6" class="text-center text-muted">No teachers added yet. Click "Add Teacher" to begin.</td>';
-                        tableBody.appendChild(tr);
-                    }
-                }, 300);
-            }
+            if (!confirm('Delete this teacher?')) return;
+            $.post('/Master/DeleteTeacher', { id: t.Id }).done(function (res) {
+                if (res.success) {
+                    row.style.animation = 'fadeOut 0.3s ease';
+                    setTimeout(() => {
+                        row.remove();
+                        updateCount();
+                        if (!tableBody.querySelector('tr[data-id]')) {
+                            const tr = document.createElement('tr');
+                            tr.id = 'emptyRow';
+                            tr.innerHTML = '<td colspan="6" class="text-center text-muted">No teachers added yet.</td>';
+                            tableBody.appendChild(tr);
+                        }
+                    }, 300);
+                }
+            });
         });
 
         tableBody.appendChild(row);
         updateCount();
     }
 
-    teachers.forEach((t, i) => renderRow(t, i));
+    // Load on page load
+    $.get('/Master/GetTeachers').done(function (list) {
+        list.forEach(renderRow);
+        if (!list.length) {
+            const tr = document.createElement('tr');
+            tr.id = 'emptyRow';
+            tr.innerHTML = '<td colspan="6" class="text-center text-muted">No teachers added yet. Click "Add Teacher" to begin.</td>';
+            tableBody.appendChild(tr);
+        }
+    });
 
     modalEl.addEventListener('hidden.bs.modal', function () {
         form.reset();
         form.querySelectorAll('.is-invalid').forEach(f => f.classList.remove('is-invalid'));
-        editingIdx = null;
+        editingId = null;
         saveBtn.style.display = '';
         updateBtn.style.display = 'none';
     });
@@ -91,55 +117,39 @@ document.addEventListener('DOMContentLoaded', function () {
         f.addEventListener('input', () => f.classList.remove('is-invalid'))
     );
 
-    function getFormData() {
-        return {
-            name: document.getElementById('teacherName').value,
-            subject: document.getElementById('subject').value,
-            qualification: document.getElementById('qualification').value,
-            email: document.getElementById('email').value,
-            mobile: document.getElementById('mobile').value,
-            joiningDate: document.getElementById('joiningDate').value,
-            salary: document.getElementById('salary').value
-        };
-    }
-
-    function validateForm() {
-        let isValid = true;
-        form.querySelectorAll('[required]').forEach(f => {
-            if (!f.value.trim()) { f.classList.add('is-invalid'); isValid = false; }
-        });
-        return isValid;
-    }
-
     saveBtn.addEventListener('click', function () {
         if (!validateForm()) return;
-        const data = getFormData();
-        teachers.push(data);
-        save();
-        renderRow(data, teachers.length - 1);
-        modal.hide();
+        $.post('/Master/SaveTeacher', getFormData()).done(function (res) {
+            if (res.success) { renderRow(res.data); modal.hide(); }
+        });
     });
 
     updateBtn.addEventListener('click', function () {
         if (!validateForm()) return;
-        teachers[editingIdx] = getFormData();
-        save();
-        tableBody.innerHTML = '';
-        teachers.forEach((t, i) => renderRow(t, i));
-        modal.hide();
+        $.post('/Master/SaveTeacher', getFormData()).done(function (res) {
+            if (res.success) {
+                const row = tableBody.querySelector(`tr[data-id="${editingId}"]`);
+                if (row) row.remove();
+                renderRow(res.data);
+                modal.hide();
+            }
+        });
     });
 
     searchModalBtn.addEventListener('click', function () {
         const q = document.getElementById('teacherName').value.trim().toLowerCase();
         if (!q) return;
-        const found = teachers.find(t => t.name.toLowerCase().includes(q));
-        if (found) { fillForm(found); } else { alert('No teacher found with that name.'); }
+        $.get('/Master/GetTeachers').done(function (list) {
+            const found = list.find(t => t.Name.toLowerCase().includes(q));
+            if (found) { fillForm(found); editingId = found.Id; }
+            else alert('No teacher found with that name.');
+        });
     });
 
     if (searchBox) {
         searchBox.addEventListener('input', function () {
             const q = this.value.toLowerCase();
-            tableBody.querySelectorAll('tr[data-idx]').forEach(row => {
+            tableBody.querySelectorAll('tr[data-id]').forEach(row => {
                 row.style.display = row.textContent.toLowerCase().includes(q) ? '' : 'none';
             });
         });
