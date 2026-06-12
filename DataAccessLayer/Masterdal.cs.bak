@@ -9,9 +9,13 @@ namespace management.DataAccessLayer
 {
     public class Masterdal
     {
+        
+
+
         private readonly string _connectionString;
 
         public Masterdal()
+
         {
             _connectionString = ConfigurationManager.ConnectionStrings["school"].ConnectionString;
         }
@@ -54,24 +58,24 @@ namespace management.DataAccessLayer
             List<StudentModel> students = new List<StudentModel>();
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("GetAllStudents", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                
+                SqlCommand cmd = new SqlCommand("GetAllStudents", conn);`r`n                cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     students.Add(new StudentModel
                     {
-                        Id            = (int)reader["StudentId"],
-                        Name          = reader["StudentName"].ToString(),
-                        FatherName    = reader["FatherName"].ToString(),
-                        MotherName    = reader["MotherName"].ToString(),
-                        Mobile        = reader["Mobile"].ToString(),
-                        DOB           = (DateTime)reader["DOB"],
-                        Gender        = reader["Gender"].ToString(),
-                        Address       = reader["Address"].ToString(),
-                        Class         = reader["Class"].ToString(),
-                        Section       = reader["Section"].ToString(),
+                        Id = (int)reader["StudentId"],
+                        Name = reader["StudentName"].ToString(),
+                        FatherName = reader["FatherName"].ToString(),
+                        MotherName = reader["MotherName"].ToString(),
+                        Mobile = reader["Mobile"].ToString(),
+                        DOB = (DateTime)reader["DOB"],
+                        Gender = reader["Gender"].ToString(),
+                        Address = reader["Address"].ToString(),
+                        Class = reader["Class"].ToString(),
+                        Section = reader["Section"].ToString(),
                         AdmissionDate = (DateTime)reader["AdmissionDate"]
                     });
                 }
@@ -83,8 +87,8 @@ namespace management.DataAccessLayer
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("GetStudentById", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+                string query = "SELECT * FROM Students WHERE StudentId=@id";
+                SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@id", id);
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
@@ -92,16 +96,16 @@ namespace management.DataAccessLayer
                 {
                     return new StudentModel
                     {
-                        Id            = (int)reader["StudentId"],
-                        Name          = reader["StudentName"].ToString(),
-                        FatherName    = reader["FatherName"].ToString(),
-                        MotherName    = reader["MotherName"].ToString(),
-                        Mobile        = reader["Mobile"].ToString(),
-                        DOB           = (DateTime)reader["DOB"],
-                        Gender        = reader["Gender"].ToString(),
-                        Address       = reader["Address"].ToString(),
-                        Class         = reader["Class"].ToString(),
-                        Section       = reader["Section"].ToString(),
+                        Id = (int)reader["StudentId"],
+                        Name = reader["StudentName"].ToString(),
+                        FatherName = reader["FatherName"].ToString(),
+                        MotherName = reader["MotherName"].ToString(),
+                        Mobile = reader["Mobile"].ToString(),
+                        DOB = (DateTime)reader["DOB"],
+                        Gender = reader["Gender"].ToString(),
+                        Address = reader["Address"].ToString(),
+                        Class = reader["Class"].ToString(),
+                        Section = reader["Section"].ToString(),
                         AdmissionDate = (DateTime)reader["AdmissionDate"]
                     };
                 }
@@ -113,17 +117,17 @@ namespace management.DataAccessLayer
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("InsertStudent", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@name",          model.Name);
-                cmd.Parameters.AddWithValue("@fatherName",    model.FatherName);
-                cmd.Parameters.AddWithValue("@motherName",    model.MotherName);
-                cmd.Parameters.AddWithValue("@mobile",        model.Mobile);
-                cmd.Parameters.AddWithValue("@address",       model.Address);
-                cmd.Parameters.AddWithValue("@dob",           model.DOB);
-                cmd.Parameters.AddWithValue("@gender",        model.Gender);
-                cmd.Parameters.AddWithValue("@class",         model.Class);
-                cmd.Parameters.AddWithValue("@section",       model.Section);
+               
+                SqlCommand cmd = new SqlCommand("InsertStudent", conn);`r`n                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@fatherName", model.FatherName);
+                cmd.Parameters.AddWithValue("@motherName", model.MotherName);
+                cmd.Parameters.AddWithValue("@mobile", model.Mobile);
+                cmd.Parameters.AddWithValue("@address", model.Address);
+                cmd.Parameters.AddWithValue("@dob", model.DOB);
+                cmd.Parameters.AddWithValue("@gender", model.Gender);
+                cmd.Parameters.AddWithValue("@class", model.Class);
+                cmd.Parameters.AddWithValue("@section", model.Section);
                 cmd.Parameters.AddWithValue("@admissionDate", model.AdmissionDate);
                 conn.Open();
                 model.Id = (int)cmd.ExecuteScalar();
@@ -135,18 +139,18 @@ namespace management.DataAccessLayer
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("UpdateStudent", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@id",            model.Id);
-                cmd.Parameters.AddWithValue("@name",          model.Name);
-                cmd.Parameters.AddWithValue("@fatherName",    model.FatherName);
-                cmd.Parameters.AddWithValue("@motherName",    model.MotherName);
-                cmd.Parameters.AddWithValue("@mobile",        model.Mobile);
-                cmd.Parameters.AddWithValue("@address",       model.Address);
-                cmd.Parameters.AddWithValue("@dob",           model.DOB);
-                cmd.Parameters.AddWithValue("@gender",        model.Gender);
-                cmd.Parameters.AddWithValue("@class",         model.Class);
-                cmd.Parameters.AddWithValue("@section",       model.Section);
+                
+                SqlCommand cmd = new SqlCommand("UpdateStudent", conn);`r`n                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@id", model.Id);
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@fatherName", model.FatherName);
+                cmd.Parameters.AddWithValue("@motherName", model.MotherName);
+                cmd.Parameters.AddWithValue("@mobile", model.Mobile);
+                cmd.Parameters.AddWithValue("@address", model.Address);
+                cmd.Parameters.AddWithValue("@dob", model.DOB);
+                cmd.Parameters.AddWithValue("@gender", model.Gender);
+                cmd.Parameters.AddWithValue("@class", model.Class);
+                cmd.Parameters.AddWithValue("@section", model.Section);
                 cmd.Parameters.AddWithValue("@admissionDate", model.AdmissionDate);
                 conn.Open();
                 return cmd.ExecuteNonQuery() > 0;
@@ -157,8 +161,8 @@ namespace management.DataAccessLayer
         {
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("DeleteStudent", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+               
+                SqlCommand cmd = new SqlCommand("DeleteStudent", conn);`r`n                cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.AddWithValue("@id", id);
                 conn.Open();
                 return cmd.ExecuteNonQuery() > 0;
@@ -171,22 +175,22 @@ namespace management.DataAccessLayer
             List<TeacherModel> teachers = new List<TeacherModel>();
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("GetAllTeachers", conn);
-                cmd.CommandType = CommandType.StoredProcedure;
+               
+                SqlCommand cmd = new SqlCommand("GetAllTeachers", conn);`r`n                cmd.CommandType = CommandType.StoredProcedure;
                 conn.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
                     teachers.Add(new TeacherModel
                     {
-                        Id            = (int)reader["TeacherId"],
-                        Name          = reader["TeacherName"].ToString(),
-                        Subject       = reader["Subject"].ToString(),
+                        Id = (int)reader["TeacherId"],
+                        Name = reader["TeacherName"].ToString(),
+                        Subject = reader["Subject"].ToString(),
                         Qualification = reader["Qualification"].ToString(),
-                        Email         = reader["Email"].ToString(),
-                        Mobile        = reader["Mobile"].ToString(),
-                        JoiningDate   = (DateTime)reader["JoiningDate"],
-                        Salary        = (decimal)reader["Salary"]
+                        Email = reader["Email"].ToString(),
+                        Mobile = reader["Mobile"].ToString(),
+                        JoiningDate = (DateTime)reader["JoiningDate"],
+                        Salary = (decimal)reader["Salary"]
                     });
                 }
             }
@@ -206,14 +210,14 @@ namespace management.DataAccessLayer
                 {
                     return new TeacherModel
                     {
-                        Id            = (int)reader["TeacherId"],
-                        Name          = reader["TeacherName"].ToString(),
-                        Subject       = reader["Subject"].ToString(),
+                        Id = (int)reader["TeacherId"],
+                        Name = reader["TeacherName"].ToString(),
+                        Subject = reader["Subject"].ToString(),
                         Qualification = reader["Qualification"].ToString(),
-                        Email         = reader["Email"].ToString(),
-                        Mobile        = reader["Mobile"].ToString(),
-                        JoiningDate   = (DateTime)reader["JoiningDate"],
-                        Salary        = (decimal)reader["Salary"]
+                        Email = reader["Email"].ToString(),
+                        Mobile = reader["Mobile"].ToString(),
+                        JoiningDate = (DateTime)reader["JoiningDate"],
+                        Salary = (decimal)reader["Salary"]
                     };
                 }
             }
@@ -226,13 +230,13 @@ namespace management.DataAccessLayer
             {
                 string query = "INSERT INTO Teachers (TeacherName, Subject, Qualification, Email, Mobile, JoiningDate, Salary) VALUES (@name, @subject, @qualification, @email, @mobile, @joiningDate, @salary); SELECT CAST(SCOPE_IDENTITY() AS INT)";
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@name",          model.Name);
-                cmd.Parameters.AddWithValue("@subject",       model.Subject);
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@subject", model.Subject);
                 cmd.Parameters.AddWithValue("@qualification", model.Qualification);
-                cmd.Parameters.AddWithValue("@email",         model.Email);
-                cmd.Parameters.AddWithValue("@mobile",        model.Mobile);
-                cmd.Parameters.AddWithValue("@joiningDate",   model.JoiningDate);
-                cmd.Parameters.AddWithValue("@salary",        model.Salary);
+                cmd.Parameters.AddWithValue("@email", model.Email);
+                cmd.Parameters.AddWithValue("@mobile", model.Mobile);
+                cmd.Parameters.AddWithValue("@joiningDate", model.JoiningDate);
+                cmd.Parameters.AddWithValue("@salary", model.Salary);
                 conn.Open();
                 model.Id = (int)cmd.ExecuteScalar();
                 return model.Id > 0;
@@ -245,14 +249,14 @@ namespace management.DataAccessLayer
             {
                 string query = "UPDATE Teachers SET TeacherName=@name, Subject=@subject, Qualification=@qualification, Email=@email, Mobile=@mobile, JoiningDate=@joiningDate, Salary=@salary WHERE TeacherId=@id";
                 SqlCommand cmd = new SqlCommand(query, conn);
-                cmd.Parameters.AddWithValue("@id",            model.Id);
-                cmd.Parameters.AddWithValue("@name",          model.Name);
-                cmd.Parameters.AddWithValue("@subject",       model.Subject);
+                cmd.Parameters.AddWithValue("@id", model.Id);
+                cmd.Parameters.AddWithValue("@name", model.Name);
+                cmd.Parameters.AddWithValue("@subject", model.Subject);
                 cmd.Parameters.AddWithValue("@qualification", model.Qualification);
-                cmd.Parameters.AddWithValue("@email",         model.Email);
-                cmd.Parameters.AddWithValue("@mobile",        model.Mobile);
-                cmd.Parameters.AddWithValue("@joiningDate",   model.JoiningDate);
-                cmd.Parameters.AddWithValue("@salary",        model.Salary);
+                cmd.Parameters.AddWithValue("@email", model.Email);
+                cmd.Parameters.AddWithValue("@mobile", model.Mobile);
+                cmd.Parameters.AddWithValue("@joiningDate", model.JoiningDate);
+                cmd.Parameters.AddWithValue("@salary", model.Salary);
                 conn.Open();
                 return cmd.ExecuteNonQuery() > 0;
             }
@@ -284,11 +288,11 @@ namespace management.DataAccessLayer
                 {
                     attendance.Add(new AttendanceModel
                     {
-                        Id          = (int)reader["AttendanceId"],
+                        Id = (int)reader["AttendanceId"],
                         StudentName = reader["StudentName"].ToString(),
-                        Class       = reader["Class"].ToString(),
-                        Date        = (DateTime)reader["AttendanceDate"],
-                        Status      = reader["Status"].ToString()
+                        Class = reader["Class"].ToString(),
+                        Date = (DateTime)reader["AttendanceDate"],
+                        Status = reader["Status"].ToString()
                     });
                 }
             }
@@ -310,8 +314,8 @@ namespace management.DataAccessLayer
                 string query = "INSERT INTO Attendance (StudentId, AttendanceDate, Status) VALUES (@studentId, @date, @status); SELECT CAST(SCOPE_IDENTITY() AS INT)";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@studentId", studentId);
-                cmd.Parameters.AddWithValue("@date",      model.Date);
-                cmd.Parameters.AddWithValue("@status",    model.Status);
+                cmd.Parameters.AddWithValue("@date", model.Date);
+                cmd.Parameters.AddWithValue("@status", model.Status);
                 model.Id = (int)cmd.ExecuteScalar();
                 return model.Id > 0;
             }
@@ -343,10 +347,10 @@ namespace management.DataAccessLayer
                 {
                     fees.Add(new FeesModel
                     {
-                        Id          = (int)reader["FeeId"],
+                        Id = (int)reader["FeeId"],
                         StudentName = reader["StudentName"].ToString(),
-                        Class       = reader["Class"].ToString(),
-                        Amount      = (decimal)reader["Amount"],
+                        Class = reader["Class"].ToString(),
+                        Amount = (decimal)reader["Amount"],
                         PaymentMode = reader["PaymentMode"].ToString(),
                         PaymentDate = (DateTime)reader["PaymentDate"]
                     });
@@ -362,8 +366,8 @@ namespace management.DataAccessLayer
                 string query = "INSERT INTO Fees (StudentName, Class, Amount, PaymentMode, PaymentDate) VALUES (@studentName, @class, @amount, @paymentMode, @paymentDate); SELECT CAST(SCOPE_IDENTITY() AS INT)";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@studentName", model.StudentName);
-                cmd.Parameters.AddWithValue("@class",       model.Class);
-                cmd.Parameters.AddWithValue("@amount",      model.Amount);
+                cmd.Parameters.AddWithValue("@class", model.Class);
+                cmd.Parameters.AddWithValue("@amount", model.Amount);
                 cmd.Parameters.AddWithValue("@paymentMode", model.PaymentMode);
                 cmd.Parameters.AddWithValue("@paymentDate", model.PaymentDate);
                 conn.Open();
